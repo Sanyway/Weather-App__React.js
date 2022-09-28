@@ -3,7 +3,6 @@ import axios from 'axios'
 import './App.css'
 import WeatherCard from './assets/components/WeatherCard'
 import Load from './assets/components/Load'
-import arrow from './assets/images/arrow.png'
 
 
 
