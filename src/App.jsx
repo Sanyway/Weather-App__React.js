@@ -75,8 +75,8 @@ function App() {
 
 
 
-
-  console.log(temp)
+ 
+  console.log(coords)
 
 
   return (
