@@ -12,7 +12,8 @@ function App() {
   const [coords, setCoords] = useState(0)
   const [weather, setWeather] = useState()
   const [temperature, setTemperature] = useState()
-  const [temp, setTemp] = useState()
+  const [photo, setPhoto] = useState()
+  const [country, setCountry] = useState()
 
 
   useEffect(() => {
@@ -22,7 +23,9 @@ function App() {
         lon: pos.coords.longitude
       }
 
-      setCoords(obj)
+      setTimeout(() => {
+        setCoords(obj);
+      }, 1000);
     }
 
     navigator.geolocation.getCurrentPosition(success)
@@ -52,42 +55,57 @@ function App() {
 
   }, [coords])
 
+
+  useEffect(() => {
+    if (weather) {
+      const URL = `https://restcountries.com/v3.1/alpha/${weather.sys.country}`
+      axios.get(URL)
+        .then(res => {
+          setCountry(res.data[0].altSpellings[1])
+        })
+        .catch(err => console.log(err))
+    }
+
+  }, [weather])
   // -----------------cambiar background------------------------------
+
+
 
   useEffect(() => {
 
-    if (temperature?.celsius < 10) {
-      setTemp({ backgroundImage: `url('https://images.unsplash.com/photo-1612208695882-02f2322b7fee?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80')` })
 
-    } else if (temperature?.celsius > 10 && temperature?.celsius < 30) {
-      setTemp({ backgroundImage: `url('https://webneel.com/wallpaper/sites/default/files/images/03-2013/9-mountain-landscape-wallpaper.jpg')` })
+    if (country) {
+      const URL = `https://api.pexels.com/v1/search?query=Countryside ${country}&page=1&per_page=10`;
+      const API_KEY = "n2vWvxtOukYQDvt8MEImh8wHuytLEeypau3daXktHmEt3vJeXAwRxY4l"
 
-    }else if (temperature?.celsius > 30){
-      setTemp({ backgroundImage: `url('http://t3.gstatic.com/licensed-image?q=tbn:ANd9GcQqR-RNXZoKmlNHfoS6dDOpEjSWU4XlrUURokOZfkULE6KZoIadhOAnJvFngpK_qtY0u9PgwoN-Uvd_ZELV3cU')` })
-
-      
-    }
-
-  }, [temperature])
-
-
-
-
-
-
- 
-  console.log(coords)
+      axios.get(URL, {
+        headers: {
+          Authorization: API_KEY,
+    }})
+  
+      .then((res) => {
+        setPhoto({ backgroundImage: `url(${res.data.photos[0].src.landscape})`})
+        console.log(res.data.photos[0].src.landscape);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+  }
+  }, [country]);
 
 
-  return (
-    <div className="App" style={temp}>
-      {temperature ?
+
+
+
+return (
+  <div className="App" style={photo}>
+    {temperature ?
       <WeatherCard weather={weather} temperature={temperature} />
       :
       <Load />
     }
-    </div>
-  )
+  </div>
+)
 }
 
 export default App

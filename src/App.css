@@ -15,18 +15,18 @@
     color: white;
     font-style: oblique;
     text-shadow: -1px 1px 0 rgb(58, 52, 52),
-                  1px 1px 0 rgb(126, 116, 116),
-                  1px -1px 0 rgb(122, 111, 111),
-                 -1px -1px 0 rgba(141, 124, 124, 0);
+        1px 1px 0 rgb(126, 116, 116),
+        1px -1px 0 rgb(122, 111, 111),
+        -1px -1px 0 rgba(141, 124, 124, 0);
     font-weight: bolder;
-    
+
 }
 
 .card {
     background-color: rgba(23, 123, 211, 0.486);
     border-radius: 10px;
     height: 380px;
-    max-width:fit-content;
+    max-width: fit-content;
     padding-top: 10px;
 
 }
@@ -45,15 +45,20 @@
     justify-content: center;
     font-size: 20px;
     font: bolder;
-    
-    
+
+
 
 }
 
 
-.card_description{
+.card_description {
     position: relative;
     right: 5%;
+}
+
+.card_description h3 {
+    text-transform: capitalize;
+    color: wheat;
 }
 
 .card_list {
@@ -64,6 +69,7 @@
     color: rgba(70, 70, 218, 0.74);
     margin-right: 15px;
 }
+
 .card_icon {
     text-align: center;
     margin-right: 40px;
@@ -74,11 +80,12 @@
 .card_icon img {
     max-height: 150px;
     position: relative;
-    
+
 }
 
 .temperature {
     text-align: center;
+    
 
 
 }
@@ -86,13 +93,22 @@
 .temperature_grades {
     margin-bottom: 10px;
 }
+
 .card_button {
-    border-radius: 4px;
+    border-radius: 15px;
     border: 0px;
-    height: 20px;
-    width: 100px;
+    padding: 15px;
+    color: red;
+    font-weight: bolder;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size: large;
     
-    }
+
+}
+
+.card_button:hover {
+    cursor: pointer;
+}
 
 .load {
     height: 100%;
@@ -100,14 +116,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-image: url('https://img.freepik.com/fotos-premium/bosque-invierno-cubierto-nieve-clima-nublado-mala-visibilidad_192420-3190.jpg?w=1060');
+    background-image: url('../src/assets/Images/forest.jpg');
     background-size: cover;
     position: absolute;
 }
 
-.loader_card{
-border-radius: 150px;
-height: 150px;
-opacity: 70%;
+.loader_card {
+    border-radius: 150px;
+    height: 150px;
+    opacity: 70%;
 }
-
