@@ -15,6 +15,7 @@ function App() {
   const [photo, setPhoto] = useState()
   const [country, setCountry] = useState()
 
+  const numeroAleatorio = Math.floor(Math.random() * 4)
 
   useEffect(() => {
     const success = pos => {
@@ -22,6 +23,7 @@ function App() {
         lat: pos.coords.latitude,
         lon: pos.coords.longitude
       }
+      console.log(pos)
 
       setTimeout(() => {
         setCoords(obj);
@@ -38,9 +40,7 @@ function App() {
   // --------------Petición del clima----------
 
   useEffect(() => {
-
-
-
+    if(coords){
     const APIKEY = 'c8de46be3b039637666f35f4c58a0770'
     const URL = `https://api.openweathermap.org/data/2.5/weather?lat=${coords.lat}&lon=${coords.lon}&appid=${APIKEY}`
     axios.get(URL)
@@ -52,10 +52,12 @@ function App() {
       })
 
       .catch(err => console.log(err))
+    }
 
   }, [coords])
 
 
+  //----------------------Definir country name------------------------
   useEffect(() => {
     if (weather) {
       const URL = `https://restcountries.com/v3.1/alpha/${weather.sys.country}`
@@ -84,7 +86,7 @@ function App() {
     }})
   
       .then((res) => {
-        setPhoto({ backgroundImage: `url(${res.data.photos[0].src.landscape})`})
+        setPhoto({ backgroundImage: `url(${res.data.photos[numeroAleatorio].src.landscape})`})
         console.log(res.data.photos[0].src.landscape);
       })
       .catch((error) => {
@@ -100,7 +102,7 @@ function App() {
 return (
   <div className="App" style={photo}>
     {temperature ?
-      <WeatherCard weather={weather} temperature={temperature} />
+      <WeatherCard weather={weather} temperature={temperature} country={country}/>
       :
       <Load />
     }

@@ -1,21 +1,22 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 
-const WeatherCard = ({ weather, temperature }) => {
+const WeatherCard = ({ weather, temperature, country }) => {
+
+
   const [isCelsius, setIsCelsius] = useState(false)
-
-
   const changeTemperature = () => setIsCelsius(!isCelsius)
 
-  
+
+
 
   return (
     <article className='card'>
       <h1 className='weather_app'>Weather App</h1>
-      <h2 className='card_city'>{`${weather?.name}, ${weather?.sys.country}`}</h2>
+      <h2 className='card_city'>{`${weather?.name}, ${country? country : "country not found"}`}</h2>
       <div className='card_data'>
         <section className='card_icon'>
-          <img src={weather ? `https://openweathermap.org/img/wn/${weather.weather[0].icon}@4x.png` : ''} alt="" />
+          <img src={weather ? `https://openweathermap.org/img/wn/${weather?.weather[0].icon}@4x.png` : ''} alt="" />
 
         </section>
         
